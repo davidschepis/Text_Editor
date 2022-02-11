@@ -20,12 +20,18 @@ module.exports = () => {
     plugins: [
       new HtmlWebpackPlugin({
         template: './index.html',
-        title: 'text_editor'
+        title: 'Jate'
+      }),
+      new InjectManifest({
+        swSrc: './src-sw.js',
+        swDest: 'src-sw.js',
       }),
       new WebpackPwaManifest({
-        name: 'text_editor',
-        short_name: 'text_editor_short',
-        description: 'A simple text editor',
+        fingerprints: false,
+        inject: true,
+        name: 'Jate',
+        short_name: 'Jate',
+        description: 'Text Editor',
         background_color: '#7eb4e2',
         theme_color: '#7eb4e2',
         start_url: '/',
@@ -34,13 +40,9 @@ module.exports = () => {
           {
             src: path.resolve('src/images/logo.png'),
             sizes: [96, 128, 192, 256, 384, 512],
-            destination: path.join('src', 'icons'),
+            destination: path.join('assets', 'icons'),
           },
         ],
-      }),
-      new InjectManifest({
-        swSrc: './src-sw.js',
-        swDest: 'service-worker.js',
       }),
     ],
     module: {
@@ -60,7 +62,6 @@ module.exports = () => {
             },
           },
         },
-
       ],
     },
   };
